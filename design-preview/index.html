@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SaaSFood Design Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="stylesheet" href="theme.css" />
+  <link rel="stylesheet" href="preview.css" />
+</head>
+<body>
+  <header class="preview-chrome">
+    <div class="left">
+      <div class="title" data-i18n="chrome.title">SaaSFood Design Preview</div>
+      <div class="hint" data-i18n="chrome.hint">Edit tokens.css · scroll screens</div>
+    </div>
+    <nav class="screen-nav" aria-label="Screens">
+      <a href="#admin-login" data-i18n="nav.adminLogin">Admin Login</a>
+      <a href="#admin-dashboard" data-i18n="nav.dashboard">Dashboard</a>
+      <a href="#user-management" data-i18n="nav.staff">Staff</a>
+      <a href="#floor-map-editor" data-i18n="nav.floorEdit">Floor Editor</a>
+      <a href="#staff-pin-login" data-i18n="nav.pin">Staff PIN</a>
+      <a href="#floor-plan-view" data-i18n="nav.floor">Floor</a>
+      <a href="#pos-layout" data-i18n="nav.pos">POS</a>
+      <a href="#item-modal" data-i18n="nav.item">Item Modal</a>
+      <a href="#checkout" data-i18n="nav.checkout">Checkout</a>
+      <a href="#payment-success" data-i18n="nav.success">Payment OK</a>
+      <a href="#kds" data-i18n="nav.kds">KDS</a>
+    </nav>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button type="button" data-lang="en" class="active">EN</button>
+      <button type="button" data-lang="cs">CS</button>
+    </div>
+  </header>
+
+  <div class="swatch-bar">
+    <span data-i18n="chrome.tokens">5 brand colors</span>
+    <span class="swatch swatch-1" title="brand-1"></span>
+    <span class="swatch swatch-2" title="brand-2"></span>
+    <span class="swatch swatch-3" title="brand-3"></span>
+    <span class="swatch swatch-4" title="brand-4"></span>
+    <span class="swatch swatch-5" title="brand-5"></span>
+    <span>tokens.css</span>
+  </div>
+
+  <!-- 1 Admin Login -->
+  <section class="screen-block" id="admin-login">
+    <div class="screen-meta"><strong data-i18n="nav.adminLogin">Admin Login</strong><span data-i18n="meta.adminLogin"></span></div>
+    <div class="device">
+      <div class="login-split">
+        <aside class="brand-panel">
+          <div class="brand-block" style="padding:0">
+            <div class="brand-mark">
+              <svg class="icon lg" viewBox="0 0 24 24"><path d="M10 2v2M14 2v2M4 8h16M6 8v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8"/><path d="M8 12h.01M12 12h.01M16 12h.01"/></svg>
+            </div>
+            <div class="brand-name" data-i18n="brand.name">SaaSFood</div>
+          </div>
+          <h1 data-i18n="brand.headline"></h1>
+          <p data-i18n="brand.lead"></p>
+          <ul class="feature-list">
+            <li><span class="dot"></span><span data-i18n="brand.f1"></span></li>
+            <li><span class="dot"></span><span data-i18n="brand.f2"></span></li>
+            <li><span class="dot"></span><span data-i18n="brand.f3"></span></li>
+          </ul>
+        </aside>
+        <div class="login-form-wrap">
+          <form class="login-card" onsubmit="return false">
+            <div>
+              <h2 data-i18n="login.welcome"></h2>
+              <p class="page-sub" data-i18n="login.sub"></p>
+            </div>
+            <div class="field">
+              <label data-i18n="login.email"></label>
+              <input type="email" value="admin@brewexpress.com" />
+            </div>
+            <div class="field">
+              <label data-i18n="login.password"></label>
+              <input type="password" value="••••••••" />
+            </div>
+            <button class="btn btn-strong btn-block btn-lg" data-i18n="login.cta"></button>
+            <div class="tenant-pill"><span class="dot" style="color:var(--success)"></span><span data-i18n="login.tenant"></span></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 Dashboard -->
+  <section class="screen-block" id="admin-dashboard">
+    <div class="screen-meta"><strong data-i18n="nav.dashboard"></strong><span data-i18n="meta.dashboard"></span></div>
+    <div class="device">
+      <div class="admin-shell">
+        <aside class="admin-sidebar">
+          <div class="brand-block">
+            <div class="brand-mark"><svg class="icon" viewBox="0 0 24 24"><path d="M3 10h18M5 6h14v14H5z"/></svg></div>
+            <div class="brand-name" data-i18n="brand.name"></div>
+          </div>
+          <div class="nav-item active" data-i18n="nav.dashboardItem"></div>
+          <div class="nav-item" data-i18n="nav.menuItem"></div>
+          <div class="nav-item" data-i18n="nav.floorItem"></div>
+          <div class="nav-item" data-i18n="nav.usersItem"></div>
+          <div class="sidebar-spacer"></div>
+          <div class="user-chip">
+            <div class="avatar">JD</div>
+            <div><div>John Doe</div><small data-i18n="user.admin"></small></div>
+          </div>
+        </aside>
+        <main class="admin-main">
+          <div class="page-head">
+            <div>
+              <h1 class="page-title" data-i18n="dash.welcome"></h1>
+              <p class="page-sub" data-i18n="dash.sub"></p>
+            </div>
+            <span class="chip chip-success"><span class="dot"></span><span data-i18n="dash.live"></span></span>
+          </div>
+          <div class="stat-grid">
+            <div class="stat-card">
+              <div class="label"><span class="dot" style="color:var(--success)"></span><span data-i18n="dash.stat1"></span></div>
+              <div class="value">142</div>
+              <div class="meta" data-i18n="dash.stat1meta"></div>
+            </div>
+            <div class="stat-card">
+              <div class="label"><span class="dot" style="color:var(--warning)"></span><span data-i18n="dash.stat2"></span></div>
+              <div class="value">12 / 24</div>
+              <div class="meta" data-i18n="dash.stat2meta"></div>
+            </div>
+            <div class="stat-card">
+              <div class="label"><span class="dot" style="color:var(--info)"></span><span data-i18n="dash.stat3"></span></div>
+              <div class="value">8</div>
+              <div class="meta" data-i18n="dash.stat3meta"></div>
+            </div>
+            <div class="stat-card">
+              <div class="label"><span class="dot" style="color:var(--primary)"></span><span data-i18n="dash.stat4"></span></div>
+              <div class="value">$1,450</div>
+              <div class="meta" data-i18n="dash.stat4meta"></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-pad" style="padding-bottom:8px"><strong data-i18n="dash.activity"></strong></div>
+            <div class="activity">
+              <div class="activity-row"><span class="dot" style="color:var(--success);margin-top:6px"></span><div><strong data-i18n="dash.a1"></strong><span data-i18n="dash.a1b"></span></div><time data-i18n="dash.a1t"></time></div>
+              <div class="activity-row"><span class="dot" style="color:var(--danger);margin-top:6px"></span><div><strong data-i18n="dash.a2"></strong><span data-i18n="dash.a2b"></span></div><time data-i18n="dash.a2t"></time></div>
+              <div class="activity-row"><span class="dot" style="color:var(--info);margin-top:6px"></span><div><strong data-i18n="dash.a3"></strong><span data-i18n="dash.a3b"></span></div><time data-i18n="dash.a3t"></time></div>
+              <div class="activity-row"><span class="dot" style="color:var(--warning);margin-top:6px"></span><div><strong data-i18n="dash.a4"></strong><span data-i18n="dash.a4b"></span></div><time data-i18n="dash.a4t"></time></div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 Staff -->
+  <section class="screen-block" id="user-management">
+    <div class="screen-meta"><strong data-i18n="nav.staff"></strong><span data-i18n="meta.staff"></span></div>
+    <div class="device wide">
+      <div class="admin-shell">
+        <aside class="admin-sidebar">
+          <div class="brand-block">
+            <div class="brand-mark"><svg class="icon" viewBox="0 0 24 24"><path d="M3 10h18M5 6h14v14H5z"/></svg></div>
+            <div class="brand-name" data-i18n="brand.name"></div>
+          </div>
+          <div class="nav-item" data-i18n="nav.dashboardItem"></div>
+          <div class="nav-item" data-i18n="nav.menuItem"></div>
+          <div class="nav-item" data-i18n="nav.floorItem"></div>
+          <div class="nav-item active" data-i18n="nav.usersItem"></div>
+          <div class="sidebar-spacer"></div>
+          <div class="user-chip"><div class="avatar">JD</div><div><div>John Doe</div><small data-i18n="user.admin"></small></div></div>
+        </aside>
+        <main class="admin-main">
+          <div class="page-head">
+            <div>
+              <h1 class="page-title" data-i18n="staff.title"></h1>
+              <p class="page-sub" data-i18n="staff.sub"></p>
+            </div>
+            <button class="btn btn-primary" data-i18n="staff.add"></button>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th data-i18n="staff.col.name"></th>
+                <th data-i18n="staff.col.role"></th>
+                <th data-i18n="staff.col.status"></th>
+                <th data-i18n="staff.col.pin"></th>
+                <th data-i18n="staff.col.actions"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>John Doe</td><td data-i18n="role.admin"></td>
+                <td><span class="chip chip-success" data-i18n="staff.active"></span></td>
+                <td><span class="chip chip-success" data-i18n="staff.configured"></span></td>
+                <td><button class="btn btn-ghost" data-i18n="staff.reset"></button></td>
+              </tr>
+              <tr>
+                <td>Sarah Smith</td><td data-i18n="role.waiter"></td>
+                <td><span class="chip chip-success" data-i18n="staff.active"></span></td>
+                <td><span class="chip chip-success" data-i18n="staff.configured"></span></td>
+                <td><button class="btn btn-ghost" data-i18n="staff.reset"></button></td>
+              </tr>
+              <tr>
+                <td>Chef Carlos</td><td data-i18n="role.kitchen"></td>
+                <td><span class="chip chip-success" data-i18n="staff.active"></span></td>
+                <td><span class="chip chip-warning" data-i18n="staff.defaultPin"></span></td>
+                <td><button class="btn btn-ghost" data-i18n="staff.reset"></button></td>
+              </tr>
+              <tr>
+                <td>Jane Miller</td><td data-i18n="role.waiter"></td>
+                <td><span class="chip chip-danger" data-i18n="staff.inactive"></span></td>
+                <td><span class="chip chip-success" data-i18n="staff.configured"></span></td>
+                <td><button class="btn btn-ghost" data-i18n="staff.reset"></button></td>
+              </tr>
+              <tr>
+                <td>Mark Evans</td><td data-i18n="role.waiter"></td>
+                <td><span class="chip chip-success" data-i18n="staff.active"></span></td>
+                <td><span class="chip chip-success" data-i18n="staff.configured"></span></td>
+                <td><button class="btn btn-ghost" data-i18n="staff.reset"></button></td>
+              </tr>
+            </tbody>
+          </table>
+        </main>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 Staff PIN -->
+  <section class="screen-block" id="staff-pin-login">
+    <div class="screen-meta"><strong data-i18n="nav.pin"></strong><span data-i18n="meta.pin"></span></div>
+    <div class="device dark">
+      <div class="device-frame">
+        <header class="term-header">
+          <div>
+            <div class="term-title" data-i18n="pin.shop"></div>
+            <span class="chip chip-muted" data-i18n="pin.terminal"></span>
+          </div>
+          <span class="chip chip-success"><span class="dot"></span><span data-i18n="pin.sync"></span></span>
+        </header>
+        <div class="pin-wrap">
+          <div class="pin-card">
+            <div>
+              <h2 style="margin:0 0 4px" data-i18n="pin.title"></h2>
+              <p class="cart-sub" data-i18n="pin.sub"></p>
+            </div>
+            <div class="field field-dark">
+              <label data-i18n="pin.id"></label>
+              <input value="104" />
+            </div>
+            <div class="field field-dark">
+              <label data-i18n="pin.pin"></label>
+              <div class="pin-dots" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i></div>
+            </div>
+            <div class="keypad">
+              <button class="key">1</button><button class="key">2</button><button class="key">3</button>
+              <button class="key">4</button><button class="key">5</button><button class="key">6</button>
+              <button class="key">7</button><button class="key">8</button><button class="key">9</button>
+              <button class="key" style="font-size:14px" data-i18n="pin.clear"></button>
+              <button class="key">0</button>
+              <button class="key enter" data-i18n="pin.enter"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3b Floor Map Editor (Admin) -->
+  <section class="screen-block" id="floor-map-editor">
+    <div class="screen-meta"><strong data-i18n="nav.floorEdit"></strong><span data-i18n="meta.floorEdit"></span></div>
+    <div class="device wide">
+      <div class="admin-shell">
+        <aside class="admin-sidebar">
+          <div class="brand-block">
+            <div class="brand-mark"><svg class="icon" viewBox="0 0 24 24"><path d="M3 10h18M5 6h14v14H5z"/></svg></div>
+            <div class="brand-name" data-i18n="brand.name"></div>
+          </div>
+          <div class="nav-item" data-i18n="nav.dashboardItem"></div>
+          <div class="nav-item" data-i18n="nav.menuItem"></div>
+          <div class="nav-item active" data-i18n="nav.floorItem"></div>
+          <div class="nav-item" data-i18n="nav.usersItem"></div>
+          <div class="sidebar-spacer"></div>
+          <div class="user-chip"><div class="avatar">JD</div><div><div>John Doe</div><small data-i18n="user.admin"></small></div></div>
+        </aside>
+        <main class="admin-main">
+          <div class="page-head">
+            <div>
+              <h1 class="page-title" data-i18n="floorEdit.title"></h1>
+              <p class="page-sub" data-i18n="floorEdit.sub"></p>
+            </div>
+            <button class="btn btn-primary" data-i18n="floorEdit.save"></button>
+          </div>
+          <div class="tabs" style="margin-bottom:14px">
+            <button class="tab active" data-i18n="floor.main"></button>
+            <button class="tab" data-i18n="floor.patio"></button>
+            <button class="tab" data-i18n="floor.vip"></button>
+          </div>
+          <div class="editor-layout">
+            <div class="floor-map light" style="min-height:480px">
+              <div class="floor-zone window" data-i18n="floor.zone.window"></div>
+              <div class="floor-zone bar" data-i18n="floor.zone.bar"></div>
+              <div class="floor-zone entrance" data-i18n="floor.zone.entrance"></div>
+
+              <button type="button" class="table-node round editing" style="left:72px;top:100px" title="Window 2">
+                <span class="status-dot"></span>
+                <span class="code">Window 2</span>
+                <span class="seats" data-i18n-seats="2"></span>
+                <span class="drag-hint" data-i18n="floorEdit.drag"></span>
+              </button>
+              <button type="button" class="table-node round" style="left:180px;top:100px">
+                <span class="status-dot"></span>
+                <span class="code">Window 4</span>
+                <span class="seats" data-i18n-seats="2"></span>
+              </button>
+              <button type="button" class="table-node rect" style="left:72px;top:230px">
+                <span class="status-dot"></span>
+                <span class="code">Booth A</span>
+                <span class="seats" data-i18n-seats="4"></span>
+              </button>
+              <button type="button" class="table-node rect" style="left:220px;top:230px">
+                <span class="status-dot"></span>
+                <span class="code">Booth B</span>
+                <span class="seats" data-i18n-seats="4"></span>
+              </button>
+              <button type="button" class="table-node large" style="left:380px;top:210px">
+                <span class="status-dot"></span>
+                <span class="code">Family</span>
+                <span class="seats" data-i18n-seats="8"></span>
+              </button>
+              <button type="button" class="table-node rect" style="left:72px;top:360px">
+                <span class="status-dot"></span>
+                <span class="code">Center 1</span>
+                <span class="seats" data-i18n-seats="4"></span>
+              </button>
+              <button type="button" class="table-node round" style="left:250px;top:370px">
+                <span class="status-dot"></span>
+                <span class="code">High-top</span>
+                <span class="seats" data-i18n-seats="2"></span>
+              </button>
+            </div>
+            <aside class="editor-side">
+              <div>
+                <div class="section-label" style="color:var(--muted)" data-i18n="floorEdit.palette"></div>
+                <div class="palette-item"><span class="mini-table round"></span><span data-i18n="floorEdit.round"></span></div>
+                <div class="palette-item" style="margin-top:8px"><span class="mini-table"></span><span data-i18n="floorEdit.rect"></span></div>
+                <div class="palette-item" style="margin-top:8px"><span class="mini-table large"></span><span data-i18n="floorEdit.large"></span></div>
+                <button class="btn btn-ghost btn-block" style="margin-top:10px" data-i18n="floorEdit.add"></button>
+              </div>
+              <div>
+                <div class="section-label" style="color:var(--muted)" data-i18n="floorEdit.selected"></div>
+                <div class="field">
+                  <label data-i18n="floorEdit.label"></label>
+                  <input value="Window 2" />
+                </div>
+                <div class="field" style="margin-top:10px">
+                  <label data-i18n="floorEdit.capacity"></label>
+                  <input type="number" value="2" />
+                </div>
+                <div class="field" style="margin-top:10px">
+                  <label data-i18n="floorEdit.section"></label>
+                  <input value="Main Floor" />
+                </div>
+              </div>
+              <p class="page-sub" data-i18n="floorEdit.help"></p>
+            </aside>
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 Floor (live POS map) -->
+  <section class="screen-block" id="floor-plan-view">
+    <div class="screen-meta"><strong data-i18n="nav.floor"></strong><span data-i18n="meta.floor"></span></div>
+    <div class="device dark">
+      <div class="device-frame">
+        <header class="term-header">
+          <div>
+            <p class="overline" data-i18n="floor.overline"></p>
+            <h2 class="term-title" data-i18n="floor.title"></h2>
+          </div>
+          <span class="chip chip-muted" data-i18n="floor.updated"></span>
+        </header>
+        <div class="floor-body">
+          <div class="floor-toolbar">
+            <div class="tabs tabs-dark">
+              <button class="tab active" data-i18n="floor.main"></button>
+              <button class="tab" data-i18n="floor.patio"></button>
+              <button class="tab" data-i18n="floor.vip"></button>
+            </div>
+            <span class="chip chip-muted" data-i18n="floor.hint"></span>
+          </div>
+          <div class="floor-map">
+            <div class="floor-zone window" data-i18n="floor.zone.window"></div>
+            <div class="floor-zone bar" data-i18n="floor.zone.bar"></div>
+            <div class="floor-zone entrance" data-i18n="floor.zone.entrance"></div>
+
+            <button type="button" class="table-node round" style="left:72px;top:100px">
+              <span class="status-dot"></span>
+              <span class="code">Window 2</span>
+              <span class="seats" data-i18n-seats="2"></span>
+            </button>
+            <button type="button" class="table-node round occupied" style="left:180px;top:100px">
+              <span class="status-dot"></span>
+              <span class="code">Window 4</span>
+              <span class="seats" data-i18n-seats="2"></span>
+            </button>
+            <button type="button" class="table-node rect" style="left:72px;top:230px">
+              <span class="status-dot"></span>
+              <span class="code">Booth A</span>
+              <span class="seats" data-i18n-seats="4"></span>
+            </button>
+            <button type="button" class="table-node rect reserved" style="left:220px;top:230px">
+              <span class="status-dot"></span>
+              <span class="code">Booth B</span>
+              <span class="seats" data-i18n-seats="4"></span>
+            </button>
+            <button type="button" class="table-node large" style="left:380px;top:210px">
+              <span class="status-dot"></span>
+              <span class="code">Family</span>
+              <span class="seats" data-i18n-seats="8"></span>
+            </button>
+            <button type="button" class="table-node rect occupied" style="left:72px;top:360px">
+              <span class="status-dot"></span>
+              <span class="code">Center 1</span>
+              <span class="seats" data-i18n-seats="4"></span>
+            </button>
+            <button type="button" class="table-node round occupied" style="left:250px;top:370px">
+              <span class="status-dot"></span>
+              <span class="code">High-top</span>
+              <span class="seats" data-i18n-seats="2"></span>
+            </button>
+            <button type="button" class="table-node rect reserved" style="left:400px;top:360px">
+              <span class="status-dot"></span>
+              <span class="code">Patio door</span>
+              <span class="seats" data-i18n-seats="4"></span>
+            </button>
+          </div>
+          <div class="legend">
+            <span><i class="swatch" style="background:var(--success)"></i><span data-i18n="floor.empty"></span></span>
+            <span><i class="swatch" style="background:var(--danger)"></i><span data-i18n="floor.occupied"></span></span>
+            <span><i class="swatch" style="background:var(--warning)"></i><span data-i18n="floor.reserved"></span></span>
+          </div>
+        </div>
+        <nav class="bottom-nav">
+          <button class="active" data-i18n="floor.nav.floor"></button>
+          <button data-i18n="floor.nav.orders"></button>
+          <button data-i18n="floor.nav.profile"></button>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 POS -->
+  <section class="screen-block" id="pos-layout">
+    <div class="screen-meta"><strong data-i18n="nav.pos"></strong><span data-i18n="meta.pos"></span></div>
+    <div class="device dark pos">
+      <div class="pos-layout">
+        <div class="pos-main">
+          <div class="page-head" style="margin:0">
+            <div>
+              <h2 class="term-title" data-i18n="pos.title"></h2>
+              <p class="cart-sub" data-i18n="pos.sub"></p>
+            </div>
+            <div class="row-actions">
+              <button class="btn btn-secondary-dark" data-i18n="pos.floorBtn"></button>
+              <button class="btn btn-secondary-dark" data-i18n="pos.lock"></button>
+            </div>
+          </div>
+          <div class="tabs tabs-dark">
+            <button class="tab active" data-i18n="pos.cat.all"></button>
+            <button class="tab" data-i18n="pos.cat.hot"></button>
+            <button class="tab" data-i18n="pos.cat.cold"></button>
+            <button class="tab" data-i18n="pos.cat.pastries"></button>
+            <button class="tab" data-i18n="pos.cat.sandwiches"></button>
+            <button class="tab" data-i18n="pos.cat.desserts"></button>
+          </div>
+          <div class="menu-grid">
+            <div class="menu-card"><div class="name">Espresso Double</div><div class="price">$3.50</div><div class="allergens"><span class="allergen">D</span></div></div>
+            <div class="menu-card"><div class="name">Cappuccino Regular</div><div class="price">$4.50</div><div class="allergens"><span class="allergen">D</span></div></div>
+            <div class="menu-card"><div class="name">Vanilla Latte</div><div class="price">$4.80</div><div class="allergens"><span class="allergen">D</span></div></div>
+            <div class="menu-card"><div class="name">Hazelnut Mocha</div><div class="price">$5.20</div><div class="allergens"><span class="allergen">D</span><span class="allergen">N</span></div></div>
+            <div class="menu-card"><div class="name">Brewed Drip Coffee</div><div class="price">$3.00</div><div class="allergens"></div></div>
+            <div class="menu-card"><div class="name">Flat White</div><div class="price">$4.50</div><div class="allergens"><span class="allergen">D</span></div></div>
+            <div class="menu-card"><div class="name">Macchiato Cortado</div><div class="price">$4.00</div><div class="allergens"><span class="allergen">D</span></div></div>
+            <div class="menu-card"><div class="name">Chai Tea Latte</div><div class="price">$5.00</div><div class="allergens"><span class="allergen">D</span><span class="allergen">G</span></div></div>
+          </div>
+        </div>
+        <aside class="cart">
+          <div>
+            <h3 data-i18n="pos.cart"></h3>
+            <p class="cart-sub" data-i18n="pos.cartSub"></p>
+          </div>
+          <div class="cart-line">
+            <div>
+              <strong>Cappuccino Regular</strong>
+              <div class="stepper"><button>−</button><span>2</span><button>+</button></div>
+            </div>
+            <div class="price-accent">$9.00</div>
+            <div class="mods">Oat Milk (+$0.50), Extra Shot (+$1.50)</div>
+          </div>
+          <div class="cart-line">
+            <div>
+              <strong>Vanilla Latte</strong>
+              <div class="stepper"><button>−</button><span>1</span><button>+</button></div>
+            </div>
+            <div class="price-accent">$4.80</div>
+            <div class="mods">Whole Milk</div>
+          </div>
+          <div class="cart-line">
+            <div>
+              <strong>Hazelnut Mocha</strong>
+              <div class="stepper"><button>−</button><span>1</span><button>+</button></div>
+            </div>
+            <div class="price-accent">$5.20</div>
+            <div class="mods">Soy Milk</div>
+          </div>
+          <div class="totals">
+            <div class="row"><span data-i18n="pos.subtotal"></span><span>$19.00</span></div>
+            <div class="row"><span data-i18n="pos.tax"></span><span>$1.52</span></div>
+            <div class="row grand"><span data-i18n="pos.total"></span><span>$20.52</span></div>
+          </div>
+          <button class="btn btn-cta btn-block" data-i18n="pos.pay"></button>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 Item modal -->
+  <section class="screen-block" id="item-modal">
+    <div class="screen-meta"><strong data-i18n="nav.item"></strong><span data-i18n="meta.item"></span></div>
+    <div class="device dark" style="max-width:700px">
+      <div class="device-frame modal-stage" style="min-height:640px">
+        <div class="modal">
+          <div class="modal-head">
+            <div>
+              <h3 style="margin:0">Cappuccino Regular</h3>
+              <p class="cart-sub" data-i18n="item.base"></p>
+            </div>
+            <button class="close-x" aria-label="Close">×</button>
+          </div>
+          <div>
+            <div class="section-label" data-i18n="item.milk"></div>
+            <div class="mod-option selected"><span data-i18n="item.whole"></span><span data-i18n="item.free"></span></div>
+            <div class="mod-option"><span data-i18n="item.oat"></span><span>+$0.50</span></div>
+            <div class="mod-option"><span data-i18n="item.almond"></span><span>+$0.50</span></div>
+          </div>
+          <div class="field field-dark">
+            <label data-i18n="item.note"></label>
+            <textarea data-i18n="item.notePh" data-i18n-attr="placeholder" placeholder=""></textarea>
+          </div>
+          <div class="modal-footer">
+            <div class="stepper"><button>−</button><span>1</span><button>+</button></div>
+            <button class="btn btn-primary btn-lg" data-i18n="item.add"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 Checkout -->
+  <section class="screen-block" id="checkout">
+    <div class="screen-meta"><strong data-i18n="nav.checkout"></strong><span data-i18n="meta.checkout"></span></div>
+    <div class="device dark" style="max-width:1100px">
+      <div class="device-frame">
+        <header class="term-header">
+          <div>
+            <h2 class="term-title" data-i18n="checkout.title"></h2>
+            <p class="cart-sub" data-i18n="checkout.sub"></p>
+          </div>
+          <button class="btn btn-secondary-dark" data-i18n="checkout.back"></button>
+        </header>
+        <div class="checkout-grid">
+          <div class="card-pad" style="background:var(--d-surface);border-radius:16px;border:1px solid var(--d-border)">
+            <h3 style="margin:0 0 12px" data-i18n="checkout.receipt"></h3>
+            <div class="receipt-line"><div>Cappuccino Regular x2<small>Oat Milk, Extra Shot</small></div><strong>$9.00</strong></div>
+            <div class="receipt-line"><div>Vanilla Latte x1<small>Whole Milk</small></div><strong>$4.80</strong></div>
+            <div class="receipt-line"><div>Hazelnut Mocha x1<small>Soy Milk</small></div><strong>$5.20</strong></div>
+            <div class="totals" style="margin-top:16px">
+              <div class="row"><span data-i18n="pos.subtotal"></span><span>$19.00</span></div>
+              <div class="row"><span data-i18n="pos.tax"></span><span>$1.52</span></div>
+              <div class="row grand"><span data-i18n="checkout.totalAmount"></span><span>$20.52</span></div>
+            </div>
+          </div>
+          <div class="card-pad" style="background:var(--d-surface);border-radius:16px;border:1px solid var(--d-border)">
+            <h3 style="margin:0 0 12px" data-i18n="checkout.method"></h3>
+            <div class="pay-method selected"><div><strong data-i18n="checkout.tap"></strong><div class="cart-sub" data-i18n="checkout.tapSub"></div></div></div>
+            <div class="pay-method"><div><strong data-i18n="checkout.cash"></strong><div class="cart-sub" data-i18n="checkout.cashSub"></div></div></div>
+            <div class="pay-method"><div><strong data-i18n="checkout.card"></strong><div class="cart-sub" data-i18n="checkout.cardSub"></div></div></div>
+            <button class="btn btn-secondary-dark btn-block" style="margin-top:8px" data-i18n="checkout.split"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 Success -->
+  <section class="screen-block" id="payment-success">
+    <div class="screen-meta"><strong data-i18n="nav.success"></strong><span data-i18n="meta.success"></span></div>
+    <div class="device dark" style="max-width:700px">
+      <div class="device-frame" style="place-items:center;display:grid;min-height:640px">
+        <div class="success-card">
+          <div class="check-circle">
+            <svg class="icon lg" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+          </div>
+          <h2 style="margin:0" data-i18n="success.title"></h2>
+          <div class="amount-xl">$20.52</div>
+          <div class="details-block">
+            <div><span data-i18n="success.table"></span><strong data-i18n="success.tableVal"></strong></div>
+            <div><span data-i18n="success.served"></span><strong data-i18n="success.servedVal"></strong></div>
+            <div><span data-i18n="success.txn"></span><strong>#TXN-9024512</strong></div>
+            <div><span data-i18n="success.time"></span><strong data-i18n="success.timeVal"></strong></div>
+          </div>
+          <div class="row-actions" style="justify-content:center">
+            <button class="btn btn-secondary-dark" data-i18n="success.print"></button>
+            <button class="btn btn-primary" data-i18n="success.new"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 KDS -->
+  <section class="screen-block" id="kds">
+    <div class="screen-meta"><strong data-i18n="nav.kds"></strong><span data-i18n="meta.kds"></span></div>
+    <div class="device dark pos">
+      <div class="device-frame">
+        <header class="term-header">
+          <div>
+            <h2 class="term-title" data-i18n="kds.title"></h2>
+            <p class="cart-sub" data-i18n="kds.station"></p>
+          </div>
+          <span class="chip chip-success"><span class="dot"></span><span data-i18n="kds.connected"></span></span>
+        </header>
+        <div class="kds-board">
+          <div>
+            <h4 data-i18n="kds.pending"></h4>
+            <article class="ticket">
+              <div class="ticket-head"><span>Table 12</span><span>3:24</span></div>
+              <div class="cart-sub"><span data-i18n="kds.waiter"></span>: Sarah Smith</div>
+              <div class="ticket-line">2× Flat White<div class="note-allergy" data-i18n="kds.allergy"></div></div>
+              <div class="ticket-line">1× Americano<div class="note-info" data-i18n="kds.noteHot"></div></div>
+              <button class="btn btn-secondary-dark btn-block" data-i18n="kds.done"></button>
+            </article>
+            <article class="ticket">
+              <div class="ticket-head"><span>Table 8</span><span>1:02</span></div>
+              <div class="cart-sub"><span data-i18n="kds.waiter"></span>: Mark Evans</div>
+              <div class="ticket-line">1× Cappuccino</div>
+              <div class="ticket-line">1× Chai Tea Latte<div class="note-info" data-i18n="kds.noteOat"></div></div>
+              <button class="btn btn-secondary-dark btn-block" data-i18n="kds.done"></button>
+            </article>
+          </div>
+          <div>
+            <h4 data-i18n="kds.prep"></h4>
+            <article class="ticket prep">
+              <div class="ticket-head"><span>Table 5</span><span>7:15</span></div>
+              <div class="cart-sub"><span data-i18n="kds.waiter"></span>: Sarah Smith</div>
+              <div class="ticket-line">1× Hazelnut Mocha<div class="note-info" data-i18n="kds.noteDecaf"></div></div>
+              <div class="ticket-line">1× Chai Tea Latte</div>
+              <button class="btn btn-secondary-dark btn-block" data-i18n="kds.done"></button>
+            </article>
+          </div>
+          <div>
+            <h4 data-i18n="kds.ready"></h4>
+            <article class="ticket ready">
+              <div class="ticket-head"><span>Table 2</span><span class="chip chip-success" data-i18n="kds.readyChip"></span></div>
+              <div class="cart-sub"><span data-i18n="kds.waiter"></span>: John Doe</div>
+              <div class="ticket-line">1× Espresso Double</div>
+              <div class="ticket-line">1× Warm Matcha Brew</div>
+              <button class="btn btn-secondary-dark btn-block" data-i18n="kds.dismiss"></button>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="i18n.js"></script>
+</body>
+</html>

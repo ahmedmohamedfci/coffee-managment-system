@@ -1,0 +1,18 @@
+/**
+ * SaaSFood brand knobs — EDIT ONLY THIS FILE to rebrand.
+ * theme.css and the screens derive everything from these five.
+ */
+:root {
+  /* === BRAND (edit these 5) === */
+  --brand-1: #2563eb; /* primary actions, active tabs, key CTAs */
+  --brand-2: #1e3a8a; /* strong surfaces: admin sidebar, dark buttons */
+  --brand-3: #38bdf8; /* accent: prices, highlights, focus */
+  --brand-4: #f1f5f9; /* light canvas (admin page background) */
+  --brand-5: #0f172a; /* ink + dark terminal backgrounds */
+
+  /* Functional status (not brand — keep readable on any palette) */
+  --success: #16a34a;
+  --danger: #dc2626;
+  --warning: #d97706;
+  --info: #2563eb;
+}

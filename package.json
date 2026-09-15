@@ -1,0 +1,14 @@
+{
+  "name": "saasfood",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter @saasfood/web dev",
+    "build": "pnpm --filter @saasfood/web build",
+    "start": "pnpm --filter @saasfood/web start",
+    "lint": "pnpm -r lint"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@9.15.9"
+}
