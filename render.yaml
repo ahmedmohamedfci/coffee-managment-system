@@ -1,0 +1,23 @@
+databases:
+  - name: saasfood-db
+    plan: free
+    region: oregon
+    postgresMajorVersion: "16"
+
+services:
+  - type: web
+    name: saasfood-web
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: HOSTNAME
+        value: "0.0.0.0"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: saasfood-db
+          property: connectionString
