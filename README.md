@@ -1,24 +1,73 @@
 # SaaSFood
 
-pnpm monorepo — Next.js FE demo with mocked APIs.
+pnpm monorepo — Next.js restaurant POS / admin / kitchen display.
 
-## Local run
+## Demo vs real app
+
+| | **Mock demo** (`/demo/…`) | **Real app** (`/t/<tenant-slug>/…`) |
+|---|---|---|
+| Data | In-browser mocks (`MockApi`) | Postgres via Docker Compose |
+| Tenants | Single fictional demo | Seeded: `al-baron-pyramid-iv`, `test-restaurant-n1` |
+| When to use | UI walkthrough, no Docker | Local multi-tenant development |
+
+Hub: [http://localhost:3000](http://localhost:3000) lists both.
+
+---
+
+## Local real app
+
+Docker is required for Postgres locally. (Oracle free tier later can follow the same Compose pattern — swap the DB service, keep `DATABASE_URL`.)
+
+```bash
+# 1. Start Postgres
+docker compose up -d postgres
+
+# 2. Install & migrate (default URL matches Compose)
+#    postgres://saasfood:saasfood@localhost:5432/saasfood
+export DATABASE_URL=postgres://saasfood:saasfood@localhost:5432/saasfood   # Windows: set DATABASE_URL=...
+pnpm install
+pnpm db:migrate
+pnpm db:seed
+
+# 3. Dev server
+pnpm dev
+```
+
+Open http://localhost:3000
+
+**Seed logins** (both tenants):
+
+- Admin: `101` / `1234`
+- Waiter: `104` / `2222`
+
+Example paths:
+
+- `/t/al-baron-pyramid-iv/pos/login`
+- `/t/test-restaurant-n1/admin/login`
+- `/t/al-baron-pyramid-iv/kitchen-display`
+
+---
+
+## Local mock demo only
+
+No database needed:
 
 ```bash
 pnpm install
 pnpm dev
 ```
 
-Open http://localhost:3000
+Open http://localhost:3000 → **Mock demo**, or go straight to `/demo/pos/login`.
 
 ## Packages
 
-- `apps/web` — Next.js App Router demo
+- `apps/web` — Next.js App Router (hub, `/demo`, `/t/<slug>`)
 - `packages/ui` — exportable presentational components
 - `packages/shared` — types, i18n (en/cs/ar), MockApi
+- `packages/db` — Drizzle schema, migrate, seed
 - `design-preview` — static HTML visual reference
 
-## Owner walkthrough
+## Owner walkthrough (demo)
 
 1. Waiter (104 / 2222) → floor → table → add items → **Submit to kitchen**
 2. Open **Kitchen Display System** — tickets appear on submit (3 sample tickets ship by default)
@@ -81,7 +130,7 @@ CI → artifact → run is cleaner.
 
 ## Keeping a public GitHub repo + VPS secure
 
-The app is a **demo with mocked data** today (no real customer DB). Still treat the VPS as hostile-internet:
+The app ships a **mock demo** and a **Postgres-backed real app**. Still treat the VPS as hostile-internet:
 
 1. **Never commit secrets** — no SSH keys, `.env`, DB URLs, API tokens in the repo. Use GitHub Actions secrets / VPS env files with `chmod 600`.
 2. **Deploy key scoped only to deploy** — a dedicated SSH key in GitHub Secrets that can only write files to `/opt/saasfood`, not your whole server.

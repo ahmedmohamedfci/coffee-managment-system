@@ -9,6 +9,7 @@ COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
 COPY apps/web/package.json ./apps/web/
 COPY packages/shared/package.json ./packages/shared/
 COPY packages/ui/package.json ./packages/ui/
+COPY packages/db/package.json ./packages/db/
 RUN pnpm install --frozen-lockfile
 
 FROM deps AS build

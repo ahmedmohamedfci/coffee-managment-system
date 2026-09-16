@@ -1,4 +1,21 @@
 services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: saasfood
+      POSTGRES_PASSWORD: saasfood
+      POSTGRES_DB: saasfood
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - saasfood_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U saasfood -d saasfood"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
   web:
     build: .
     image: saasfood-web:latest
@@ -10,3 +27,10 @@ services:
       PORT: "3000"
       HOSTNAME: "0.0.0.0"
       NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+      DATABASE_URL: ${DATABASE_URL:-postgres://saasfood:saasfood@postgres:5432/saasfood}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  saasfood_pgdata:

@@ -5,7 +5,10 @@
     "dev": "pnpm --filter @saasfood/web dev",
     "build": "pnpm --filter @saasfood/web build",
     "start": "pnpm --filter @saasfood/web start",
-    "lint": "pnpm -r lint"
+    "lint": "pnpm -r lint",
+    "db:generate": "pnpm --filter @saasfood/db generate",
+    "db:migrate": "pnpm --filter @saasfood/db migrate",
+    "db:seed": "pnpm --filter @saasfood/db seed"
   },
   "engines": {
     "node": ">=20"

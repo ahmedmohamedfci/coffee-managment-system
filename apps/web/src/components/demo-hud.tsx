@@ -10,15 +10,15 @@ import { useEffect } from "react";
 
 const jumps = [
   { href: "/", key: "nav.home" as const },
-  { href: "/admin/login", key: "nav.adminLogin" as const },
-  { href: "/admin", key: "nav.dashboard" as const },
-  { href: "/admin/staff", key: "nav.staff" as const },
-  { href: "/admin/floor", key: "nav.floorEdit" as const },
-  { href: "/admin/settings", key: "nav.settings" as const },
-  { href: "/pos/login", key: "nav.pin" as const },
-  { href: "/pos/floor", key: "nav.floor" as const },
-  { href: "/pos/prices", key: "nav.prices" as const },
-  { href: "/kitchen-display", key: "nav.kds" as const },
+  { href: "/demo/admin/login", key: "nav.adminLogin" as const },
+  { href: "/demo/admin", key: "nav.dashboard" as const },
+  { href: "/demo/admin/staff", key: "nav.staff" as const },
+  { href: "/demo/admin/floor", key: "nav.floorEdit" as const },
+  { href: "/demo/admin/settings", key: "nav.settings" as const },
+  { href: "/demo/pos/login", key: "nav.pin" as const },
+  { href: "/demo/pos/floor", key: "nav.floor" as const },
+  { href: "/demo/pos/prices", key: "nav.prices" as const },
+  { href: "/demo/kitchen-display", key: "nav.kds" as const },
 ];
 
 export function DemoHud() {
@@ -93,7 +93,7 @@ export function DemoHud() {
           variant="dark"
           onClick={async () => {
             setSession({ kind: "admin", name: "John Doe", email: "admin@brewexpress.com" });
-            router.push("/admin");
+            router.push("/demo/admin");
           }}
         >
           {t("persona.admin")}
@@ -103,12 +103,12 @@ export function DemoHud() {
           onClick={async () => {
             const s = await mockApi.staffLogin("104", "2222");
             setSession({ kind: "staff", staffId: s.staffId, name: s.name, role: s.role });
-            router.push("/pos/floor");
+            router.push("/demo/pos/floor");
           }}
         >
           {t("persona.waiter")}
         </Button>
-        <Button variant="dark" onClick={() => router.push("/kitchen-display")}>
+        <Button variant="dark" onClick={() => router.push("/demo/kitchen-display")}>
           {t("persona.kitchen")}
         </Button>
         <Button

@@ -7,7 +7,7 @@ function uid(prefix: string) {
   return `${prefix}_${Math.random().toString(36).slice(2, 9)}`;
 }
 
-function delay(ms = 280) {
+function delay(ms = 50) {
   return new Promise((r) => setTimeout(r, ms));
 }
 

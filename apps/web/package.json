@@ -9,8 +9,10 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@saasfood/db": "workspace:*",
     "@saasfood/shared": "workspace:*",
     "@saasfood/ui": "workspace:*",
+    "drizzle-orm": "^0.44.5",
     "i18next": "^25.5.2",
     "lucide-react": "^0.544.0",
     "next": "15.5.7",
