@@ -150,7 +150,6 @@ export const en = {
   "success.print": "Print (stub)",
 
   "kds.title": "Kitchen Display System",
-  "kds.station": "Active station: Hot drinks & pastries",
   "kds.pending": "Pending",
   "kds.preparing": "In preparation",
   "kds.ready": "Ready",
@@ -158,6 +157,7 @@ export const en = {
   "kds.dismiss": "Dismiss",
   "kds.empty": "No tickets yet — submit an order from POS",
   "kds.connected": "Connected (mock)",
+  "kds.station": "Active station: Hot drinks & pastries",
 
   "persona.admin": "Login as Admin",
   "persona.waiter": "Login as Waiter (104 / 2222)",

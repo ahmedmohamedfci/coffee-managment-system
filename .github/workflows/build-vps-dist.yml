@@ -1,0 +1,74 @@
+name: Build VPS dist
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build (Next.js standalone)
+        run: pnpm --filter @saasfood/web build
+
+      - name: Assemble deploy bundle
+        run: |
+          set -euo pipefail
+          ROOT="deploy-dist"
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT"
+
+          # Standalone Node server produced by Next.js
+          cp -a apps/web/.next/standalone/. "$ROOT/"
+
+          # Static assets required at runtime
+          mkdir -p "$ROOT/apps/web/.next"
+          cp -a apps/web/.next/static "$ROOT/apps/web/.next/static"
+          if [ -d apps/web/public ]; then
+            mkdir -p "$ROOT/apps/web/public"
+            cp -a apps/web/public/. "$ROOT/apps/web/public/"
+          fi
+
+          cat > "$ROOT/README-DEPLOY.txt" <<'EOF'
+          SaaSFood standalone deploy bundle
+          =================================
+          On the VPS (Node 20+):
+
+            tar -xzf saasfood-dist.tgz
+            cd <extracted-folder>
+            PORT=3000 HOSTNAME=0.0.0.0 node apps/web/server.js
+
+          Put nginx/Caddy in front with HTTPS. Do not expose Node publicly.
+          EOF
+
+          tar -C "$ROOT" -czf saasfood-dist.tgz .
+          ls -lh saasfood-dist.tgz
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: saasfood-dist
+          path: saasfood-dist.tgz
+          if-no-files-found: error
+          retention-days: 14

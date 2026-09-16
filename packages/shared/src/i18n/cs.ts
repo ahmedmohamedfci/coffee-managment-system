@@ -17,7 +17,7 @@ export const cs: Record<MessageKey, string> = {
   "nav.pin": "PIN personálu",
   "nav.floor": "Živý půdorys",
   "nav.prices": "Ceník",
-  "nav.kds": "Kuchyňský displej",
+  "nav.kds": "Kitchen Display System",
 
   "settings.title": "Nastavení",
   "settings.sub": "Správa cenových multiplikátorů (příplatků) pro POS.",
@@ -139,8 +139,7 @@ export const cs: Record<MessageKey, string> = {
   "success.title": "Platba úspěšná",
   "success.new": "Nová objednávka",
   "success.print": "Tisk (stub)",
-  "kds.title": "Kuchyňský displej",
-  "kds.station": "Aktivní stanice: Teplé nápoje & pečivo",
+  "kds.title": "Kitchen Display System",
   "kds.pending": "Čeká",
   "kds.preparing": "Připravuje se",
   "kds.ready": "Hotovo",
@@ -148,7 +147,8 @@ export const cs: Record<MessageKey, string> = {
   "kds.dismiss": "Zavřít",
   "kds.empty": "Zatím žádné lístky — odešlete objednávku z POS",
   "kds.connected": "Připojeno (mock)",
+  "kds.station": "Aktivní stanice: Teplé nápoje a pečivo",
   "persona.admin": "Admin",
   "persona.waiter": "Číšník (104 / 2222)",
-  "persona.kitchen": "Otevřít kuchyňský displej",
+  "persona.kitchen": "Otevřít Kitchen Display System",
 };

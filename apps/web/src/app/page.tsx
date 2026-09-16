@@ -13,7 +13,7 @@ export default function HomePage() {
       <ol style={{ marginTop: 28, display: "grid", gap: 12, color: "#cbd5e1", lineHeight: 1.5 }}>
         <li>Admin: login → dashboard → staff → floor editor</li>
         <li>Waiter: PIN 104 / 2222 → floor → POS → <strong>Submit to kitchen</strong> → pay</li>
-        <li>Open Kitchen Display System — tickets appear on submit (a sample ticket is seeded)</li>
+        <li>Open Kitchen Display System — tickets appear when the waiter submits an order</li>
       </ol>
       <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 28 }}>
         <Link href="/admin/login"><Button>{t("nav.adminLogin")}</Button></Link>
