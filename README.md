@@ -75,6 +75,10 @@ Open http://localhost:3000 → **Mock demo**, or go straight to `/demo/pos/login
 
 ---
 
+## Coolify
+
+See [DEPLOY.md](DEPLOY.md). Existing `Dockerfile` deploys on Coolify. Auto-redeploy on push to `main` needs GitHub secrets `COOLIFY_WEBHOOK_URL` and `COOLIFY_TOKEN`.
+
 ## Deploy to a VPS
 
 ### Recommended: GitHub Actions builds the dist, you run it on the VPS
