@@ -13,6 +13,7 @@ import type {
   StaffRole,
   TicketStatus,
 } from "@saasfood/shared";
+import { PAYMENT_STASH_KEY } from "./constants";
 
 export class ApiError extends Error {
   constructor(
@@ -69,11 +70,24 @@ export type UpdateMenuItemInput = Partial<CreateMenuItemInput> & {
 
 async function parseError(res: Response): Promise<string> {
   try {
-    const body = (await res.json()) as { error?: string; message?: string };
-    return body.error || body.message || res.statusText || "Request failed";
+    const body = (await res.json()) as {
+      error?: string | { code?: string; message?: string };
+      message?: string;
+      code?: string;
+    };
+    if (typeof body.error === "object" && body.error?.message) return body.error.message;
+    if (typeof body.error === "string") return body.error;
+    return body.message || res.statusText || "Request failed";
   } catch {
     return res.statusText || "Request failed";
   }
+}
+
+function acceptLanguageHeader(): string {
+  if (typeof document !== "undefined") {
+    return document.documentElement.lang || "en";
+  }
+  return "en";
 }
 
 export async function apiFetch<T>(
@@ -86,6 +100,7 @@ export async function apiFetch<T>(
     credentials: "include",
     headers: {
       ...(init?.body ? { "Content-Type": "application/json" } : {}),
+      "Accept-Language": acceptLanguageHeader(),
       ...init?.headers,
     },
   });
@@ -231,14 +246,12 @@ export function money(amount: number, currency = "USD") {
   }
 }
 
-const PAYMENT_KEY = "sf_last_payment";
-
 export function stashPaymentSuccess(payload: {
   payment: Payment;
   order: Pick<Order, "id" | "tableLabel" | "waiterName" | "total">;
 }) {
   try {
-    sessionStorage.setItem(PAYMENT_KEY, JSON.stringify(payload));
+    sessionStorage.setItem(PAYMENT_STASH_KEY, JSON.stringify(payload));
   } catch {
     /* ignore */
   }
@@ -246,7 +259,7 @@ export function stashPaymentSuccess(payload: {
 
 export function readPaymentSuccess(paymentId: string) {
   try {
-    const raw = sessionStorage.getItem(PAYMENT_KEY);
+    const raw = sessionStorage.getItem(PAYMENT_STASH_KEY);
     if (!raw) return null;
     const data = JSON.parse(raw) as {
       payment: Payment;

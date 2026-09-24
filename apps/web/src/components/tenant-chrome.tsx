@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createTenantApi, type TenantInfo } from "@/lib/api-client";
+import { LocaleSwitcher } from "@/components/locale-switcher";
 
 export function TenantChrome({ slug }: { slug: string }) {
   const [tenant, setTenant] = useState<TenantInfo | null>(null);
@@ -38,7 +39,10 @@ export function TenantChrome({ slug }: { slug: string }) {
       <div style={{ fontWeight: 700, letterSpacing: "0.02em" }}>
         {tenant?.name ?? slug}
       </div>
-      <div style={{ opacity: 0.65, fontFamily: "ui-monospace, monospace" }}>/t/{slug}</div>
+      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        <div style={{ opacity: 0.65, fontFamily: "ui-monospace, monospace" }}>/t/{slug}</div>
+        <LocaleSwitcher />
+      </div>
     </div>
   );
 }

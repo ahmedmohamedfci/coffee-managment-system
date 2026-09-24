@@ -2,7 +2,7 @@ import { and, desc, eq, ne } from "drizzle-orm";
 import { kitchenTickets } from "@saasfood/db";
 import type { TicketStatus } from "@saasfood/shared";
 import { getDb } from "@/lib/db";
-import { ApiError } from "@/lib/errors";
+import { apiError } from "@/lib/api-helpers";
 
 const VALID: TicketStatus[] = ["pending", "preparing", "ready", "dismissed"];
 
@@ -44,7 +44,7 @@ export async function updateTicketStatus(
   status: TicketStatus,
 ) {
   if (!VALID.includes(status)) {
-    throw new ApiError(400, "Invalid ticket status", "INVALID_STATUS");
+    throw apiError("INVALID_STATUS");
   }
 
   const db = getDb();
@@ -54,7 +54,7 @@ export async function updateTicketStatus(
     .where(and(eq(kitchenTickets.tenantId, tenantId), eq(kitchenTickets.id, ticketId)))
     .limit(1);
 
-  if (!existing) throw new ApiError(404, "Ticket not found", "TICKET_NOT_FOUND");
+  if (!existing) throw apiError("TICKET_NOT_FOUND");
 
   const patch: Partial<typeof kitchenTickets.$inferInsert> = { status };
   if (status === "preparing" && !existing.startedAt) {

@@ -1,4 +1,4 @@
-import { ApiError, jsonOk, parseJson, requireSession, withApi } from "@/lib/api-helpers";
+import { apiError, jsonOk, parseJson, requireSession, withApi } from "@/lib/api-helpers";
 import { addLine } from "@/modules/orders";
 
 export async function POST(
@@ -17,7 +17,7 @@ export async function POST(
       expectedVersion?: number;
     }>(req);
     if (!body.menuItemId || body.quantity === undefined) {
-      throw new ApiError(400, "menuItemId and quantity are required", "MISSING_FIELDS");
+      throw apiError("MISSING_FIELDS");
     }
     return jsonOk(
       await addLine(tenant.id, orderId, {

@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import { tenants } from "@saasfood/db";
 import { getDb } from "./db";
-import { ApiError } from "./errors";
+import { apiError } from "./error-catalog";
 
 export type Tenant = typeof tenants.$inferSelect;
 
@@ -13,6 +13,6 @@ export async function resolveTenantBySlug(slug: string): Promise<Tenant | null> 
 
 export async function requireTenant(slug: string): Promise<Tenant> {
   const tenant = await resolveTenantBySlug(slug);
-  if (!tenant) throw new ApiError(404, "Tenant not found", "TENANT_NOT_FOUND");
+  if (!tenant) throw apiError("TENANT_NOT_FOUND");
   return tenant;
 }

@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AdminShell } from "@saasfood/ui";
-import { useT } from "@/lib/use-t";
+import { useT, useLocalePath } from "@/lib/use-t";
 import { useDemoStore } from "@/lib/demo-store";
+import { stripLocalePrefix } from "@/lib/locale";
 
 function SoftNavItem({
   href,
@@ -24,7 +25,9 @@ function SoftNavItem({
 
 export function AdminLayoutClient({ children }: { children: React.ReactNode }) {
   const t = useT();
-  const pathname = usePathname();
+  const lp = useLocalePath();
+  const pathname = usePathname() || "/";
+  const path = stripLocalePrefix(pathname);
   const session = useDemoStore((s) => s.session);
 
   return (
@@ -32,25 +35,27 @@ export function AdminLayoutClient({ children }: { children: React.ReactNode }) {
       brand={t("app.name")}
       nav={
         <>
-          <SoftNavItem href="/demo/admin" active={pathname === "/demo/admin"}>
+          <SoftNavItem href={lp("/demo/admin")} active={path === "/demo/admin"}>
             {t("nav.dashboard")}
           </SoftNavItem>
-          <SoftNavItem href="/demo/admin/staff" active={pathname.startsWith("/demo/admin/staff")}>
+          <SoftNavItem href={lp("/demo/admin/staff")} active={path.startsWith("/demo/admin/staff")}>
             {t("nav.staff")}
           </SoftNavItem>
-          <SoftNavItem href="/demo/admin/floor" active={pathname.startsWith("/demo/admin/floor")}>
+          <SoftNavItem href={lp("/demo/admin/floor")} active={path.startsWith("/demo/admin/floor")}>
             {t("nav.floorEdit")}
           </SoftNavItem>
-          <SoftNavItem href="/demo/admin/settings" active={pathname.startsWith("/demo/admin/settings")}>
+          <SoftNavItem href={lp("/demo/admin/settings")} active={path.startsWith("/demo/admin/settings")}>
             {t("nav.settings")}
           </SoftNavItem>
         </>
       }
       user={
         <div style={{ padding: 10, borderRadius: 12, background: "color-mix(in srgb, white 10%, transparent)" }}>
-          <div style={{ fontWeight: 700 }}>{session?.kind === "admin" ? session.name : "Admin"}</div>
+          <div style={{ fontWeight: 700 }}>
+            {session?.kind === "admin" ? session.name : t("user.admin")}
+          </div>
           <div style={{ fontSize: 11, opacity: 0.7 }}>
-            <Link href="/demo/admin/login">login</Link>
+            <Link href={lp("/demo/admin/login")}>{t("nav.loginLink")}</Link>
           </div>
         </div>
       }

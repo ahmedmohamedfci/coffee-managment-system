@@ -1,4 +1,15 @@
-export type Lang = "en" | "cs" | "ar";
+export type Lang = "en" | "ar" | "de" | "cs";
+
+export const LOCALES: readonly Lang[] = ["en", "ar", "de", "cs"] as const;
+export const DEFAULT_LANG: Lang = "en";
+
+export function isLang(value: string | null | undefined): value is Lang {
+  return !!value && (LOCALES as readonly string[]).includes(value);
+}
+
+export function isRtl(lang: Lang): boolean {
+  return lang === "ar";
+}
 export type StaffRole = "admin" | "waiter" | "kitchen";
 export type TableStatus = "empty" | "occupied" | "reserved";
 export type TableShape = "round" | "rect" | "large";

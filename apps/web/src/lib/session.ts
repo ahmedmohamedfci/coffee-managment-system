@@ -3,9 +3,9 @@ import { eq } from "drizzle-orm";
 import { sessions, staff } from "@saasfood/db";
 import { randomUUID } from "crypto";
 import { getDb } from "./db";
+import { SESSION_COOKIE, SESSION_TTL_MS } from "./constants";
 
-export const SESSION_COOKIE = "sf_session";
-const SESSION_TTL_MS = 12 * 60 * 60 * 1000;
+export { SESSION_COOKIE };
 
 export type SessionStaff = {
   sessionId: string;

@@ -1,4 +1,4 @@
-import { ApiError, jsonOk, parseJson, requireSession, withApi } from "@/lib/api-helpers";
+import { apiError, jsonOk, parseJson, requireSession, withApi } from "@/lib/api-helpers";
 import { updateLineQty } from "@/modules/orders";
 
 export async function PATCH(
@@ -10,7 +10,7 @@ export async function PATCH(
     const { tenant } = await requireSession(tenantSlug);
     const body = await parseJson<{ quantity?: number; expectedVersion?: number }>(req);
     if (body.quantity === undefined) {
-      throw new ApiError(400, "quantity is required", "MISSING_FIELDS");
+      throw apiError("MISSING_FIELDS");
     }
     return jsonOk(
       await updateLineQty(tenant.id, orderId, lineId, body.quantity, body.expectedVersion),

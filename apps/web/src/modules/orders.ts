@@ -19,7 +19,7 @@ import {
   type PaymentMethod,
 } from "@saasfood/shared";
 import { getDb } from "@/lib/db";
-import { ApiError, uid } from "@/lib/api-helpers";
+import { apiError, uid } from "@/lib/api-helpers";
 
 type Db = ReturnType<typeof getDb>;
 
@@ -29,7 +29,7 @@ async function loadOrderBundle(db: Db, tenantId: string, orderId: string) {
     .from(orders)
     .where(and(eq(orders.tenantId, tenantId), eq(orders.id, orderId)))
     .limit(1);
-  if (!order) throw new ApiError(404, "Order not found", "ORDER_NOT_FOUND");
+  if (!order) throw apiError("ORDER_NOT_FOUND");
 
   const lines = await db
     .select()
@@ -77,7 +77,7 @@ async function assertVersion(
   expectedVersion?: number,
 ) {
   if (expectedVersion !== undefined && order.version !== expectedVersion) {
-    throw new ApiError(409, "Order version conflict", "VERSION_CONFLICT");
+    throw apiError("VERSION_CONFLICT");
   }
 }
 
@@ -96,7 +96,7 @@ export async function openOrder(tenantId: string, tableId: string, waiterId: str
     .limit(1);
 
   if (!table || !waiter) {
-    throw new ApiError(400, "Table or waiter missing", "OPEN_ORDER_INVALID");
+    throw apiError("OPEN_ORDER_INVALID");
   }
 
   const [existing] = await db
@@ -125,7 +125,7 @@ export async function openOrder(tenantId: string, tableId: string, waiterId: str
       .from(tenants)
       .where(eq(tenants.id, tenantId))
       .limit(1);
-    if (!tenant) throw new ApiError(404, "Tenant not found", "TENANT_NOT_FOUND");
+    if (!tenant) throw apiError("TENANT_NOT_FOUND");
 
     const orderNumber = tenant.nextOrderNumber;
     await tx
@@ -192,7 +192,7 @@ export async function addLine(
   },
 ) {
   if (!input.quantity || input.quantity < 1) {
-    throw new ApiError(400, "Quantity must be at least 1", "INVALID_QTY");
+    throw apiError("INVALID_QTY");
   }
 
   const db = getDb();
@@ -200,7 +200,7 @@ export async function addLine(
   await assertVersion(order, input.expectedVersion);
 
   if (order.status !== "open") {
-    throw new ApiError(400, "Order is not open for edits", "ORDER_NOT_OPEN");
+    throw apiError("ORDER_NOT_OPEN");
   }
 
   const [item] = await db
@@ -214,7 +214,7 @@ export async function addLine(
       ),
     )
     .limit(1);
-  if (!item) throw new ApiError(404, "Item not found", "ITEM_NOT_FOUND");
+  if (!item) throw apiError("ITEM_NOT_FOUND");
 
   const links = await db
     .select()
@@ -296,7 +296,7 @@ export async function addLine(
       )
       .returning();
     if (updated.length === 0) {
-      throw new ApiError(409, "Order version conflict", "VERSION_CONFLICT");
+      throw apiError("VERSION_CONFLICT");
     }
   });
 
@@ -315,11 +315,11 @@ export async function updateLineQty(
   await assertVersion(order, expectedVersion);
 
   if (order.status !== "open") {
-    throw new ApiError(400, "Order is not open for edits", "ORDER_NOT_OPEN");
+    throw apiError("ORDER_NOT_OPEN");
   }
 
   const target = lines.find((l) => l.id === lineId);
-  if (!target) throw new ApiError(404, "Line not found", "LINE_NOT_FOUND");
+  if (!target) throw apiError("LINE_NOT_FOUND");
 
   const nextLines =
     quantity <= 0
@@ -389,7 +389,7 @@ export async function updateLineQty(
       )
       .returning();
     if (updated.length === 0) {
-      throw new ApiError(409, "Order version conflict", "VERSION_CONFLICT");
+      throw apiError("VERSION_CONFLICT");
     }
   });
 
@@ -406,7 +406,7 @@ export async function submitOrder(
   await assertVersion(order, expectedVersion);
 
   if (lines.length === 0) {
-    throw new ApiError(400, "Add items before submitting", "EMPTY_ORDER");
+    throw apiError("EMPTY_ORDER");
   }
 
   if (
@@ -418,7 +418,7 @@ export async function submitOrder(
   }
 
   if (order.status !== "open") {
-    throw new ApiError(400, "Cannot submit order in current status", "INVALID_STATUS");
+    throw apiError("INVALID_STATUS");
   }
 
   const now = new Date();
@@ -441,7 +441,7 @@ export async function submitOrder(
       )
       .returning();
     if (updated.length === 0) {
-      throw new ApiError(409, "Order version conflict", "VERSION_CONFLICT");
+      throw apiError("VERSION_CONFLICT");
     }
 
     await tx
@@ -503,7 +503,7 @@ export async function beginCheckout(
   }
 
   if (order.status !== "submitted") {
-    throw new ApiError(400, "Cannot checkout order in current status", "INVALID_STATUS");
+    throw apiError("INVALID_STATUS");
   }
 
   const updated = await db
@@ -521,7 +521,7 @@ export async function beginCheckout(
     )
     .returning();
   if (updated.length === 0) {
-    throw new ApiError(409, "Order version conflict", "VERSION_CONFLICT");
+    throw apiError("VERSION_CONFLICT");
   }
 
   return getOrder(tenantId, orderId);
@@ -534,10 +534,10 @@ export async function pay(
   expectedVersion?: number,
 ) {
   if (method === "tap") {
-    throw new ApiError(400, "Tap to Pay is not available yet", "TAP_STUBBED");
+    throw apiError("TAP_STUBBED");
   }
   if (method !== "cash" && method !== "manual_card") {
-    throw new ApiError(400, "Invalid payment method", "INVALID_METHOD");
+    throw apiError("INVALID_METHOD");
   }
 
   const db = getDb();
@@ -545,10 +545,10 @@ export async function pay(
   await assertVersion(order, expectedVersion);
 
   if (order.status === "paid") {
-    throw new ApiError(400, "Order already paid", "ALREADY_PAID");
+    throw apiError("ALREADY_PAID");
   }
   if (order.status === "open") {
-    throw new ApiError(400, "Submit/checkout before paying", "NOT_READY");
+    throw apiError("NOT_READY");
   }
 
   const paymentId = uid("pay");
@@ -571,7 +571,7 @@ export async function pay(
       )
       .returning();
     if (updated.length === 0) {
-      throw new ApiError(409, "Order version conflict", "VERSION_CONFLICT");
+      throw apiError("VERSION_CONFLICT");
     }
 
     const [row] = await tx

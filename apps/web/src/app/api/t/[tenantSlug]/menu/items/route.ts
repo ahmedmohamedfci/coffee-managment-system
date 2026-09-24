@@ -1,4 +1,4 @@
-import { ApiError, jsonOk, parseJson, requireAdmin, withApi } from "@/lib/api-helpers";
+import { apiError, jsonOk, parseJson, requireAdmin, withApi } from "@/lib/api-helpers";
 import type { Allergen } from "@saasfood/shared";
 import { createMenuItem } from "@/modules/menu";
 
@@ -19,11 +19,7 @@ export async function POST(
       modifierGroupIds?: string[];
     }>(req);
     if (!body.categoryId || !body.nameKey || !body.name || body.basePrice === undefined) {
-      throw new ApiError(
-        400,
-        "categoryId, nameKey, name, and basePrice are required",
-        "MISSING_FIELDS",
-      );
+      throw apiError("MISSING_FIELDS");
     }
     return jsonOk(
       await createMenuItem(tenant.id, {

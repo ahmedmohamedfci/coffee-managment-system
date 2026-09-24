@@ -13,12 +13,10 @@
     "@saasfood/shared": "workspace:*",
     "@saasfood/ui": "workspace:*",
     "drizzle-orm": "^0.44.5",
-    "i18next": "^25.5.2",
     "lucide-react": "^0.544.0",
     "next": "15.5.7",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "react-i18next": "^15.7.3",
     "zustand": "^5.0.8"
   },
   "devDependencies": {

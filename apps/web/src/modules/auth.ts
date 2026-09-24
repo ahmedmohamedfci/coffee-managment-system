@@ -1,7 +1,7 @@
 import { and, eq } from "drizzle-orm";
 import { staff } from "@saasfood/db";
 import { getDb } from "@/lib/db";
-import { ApiError } from "@/lib/errors";
+import { apiError } from "@/lib/api-helpers";
 import { createSession, destroySession, readSession, type SessionStaff } from "@/lib/session";
 
 function publicStaff(row: typeof staff.$inferSelect) {
@@ -26,7 +26,7 @@ export async function staffLogin(tenantId: string, staffCode: string, pin: strin
     .limit(1);
 
   if (!row || row.pin !== pin) {
-    throw new ApiError(401, "Invalid staff ID or PIN", "INVALID_CREDENTIALS");
+    throw apiError("INVALID_CREDENTIALS");
   }
 
   await createSession(tenantId, row.id);

@@ -2,11 +2,18 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { mockApi, type Lang } from "@saasfood/shared";
+import { mockApi } from "@saasfood/shared";
 import { Button } from "@saasfood/ui";
 import { useDemoStore } from "@/lib/demo-store";
-import { useT } from "@/lib/use-t";
-import { useEffect } from "react";
+import { useLocalePath, useT } from "@/lib/use-t";
+import { LocaleSwitcher } from "@/components/locale-switcher";
+import { stripLocalePrefix } from "@/lib/locale";
+import {
+  DEMO_ADMIN_EMAIL,
+  DEMO_ADMIN_NAME,
+  DEMO_WAITER_CODE,
+  DEMO_WAITER_PIN,
+} from "@/lib/constants";
 
 const jumps = [
   { href: "/", key: "nav.home" as const },
@@ -23,16 +30,11 @@ const jumps = [
 
 export function DemoHud() {
   const t = useT();
-  const lang = useDemoStore((s) => s.lang);
-  const setLang = useDemoStore((s) => s.setLang);
+  const lp = useLocalePath();
   const setSession = useDemoStore((s) => s.setSession);
-  const pathname = usePathname();
+  const pathname = usePathname() || "/";
+  const pathNoLocale = stripLocalePrefix(pathname);
   const router = useRouter();
-
-  useEffect(() => {
-    document.documentElement.lang = lang;
-    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-  }, [lang]);
 
   return (
     <div
@@ -57,11 +59,11 @@ export function DemoHud() {
         {jumps.map((j) => (
           <Link
             key={j.href}
-            href={j.href}
+            href={lp(j.href)}
             style={{
               padding: "6px 10px",
               borderRadius: 999,
-              background: pathname === j.href ? "var(--brand-1)" : "color-mix(in srgb, white 8%, transparent)",
+              background: pathNoLocale === j.href ? "var(--brand-1)" : "color-mix(in srgb, white 8%, transparent)",
               textDecoration: "none",
               fontWeight: 600,
             }}
@@ -71,29 +73,12 @@ export function DemoHud() {
         ))}
       </div>
       <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
-        {(["en", "cs", "ar"] as Lang[]).map((l) => (
-          <button
-            key={l}
-            type="button"
-            onClick={() => setLang(l)}
-            style={{
-              border: "none",
-              borderRadius: 999,
-              padding: "6px 10px",
-              fontWeight: 700,
-              cursor: "pointer",
-              background: lang === l ? "var(--brand-1)" : "transparent",
-              color: "#fff",
-            }}
-          >
-            {t(`lang.${l}`)}
-          </button>
-        ))}
+        <LocaleSwitcher />
         <Button
           variant="dark"
           onClick={async () => {
-            setSession({ kind: "admin", name: "John Doe", email: "admin@brewexpress.com" });
-            router.push("/demo/admin");
+            setSession({ kind: "admin", name: DEMO_ADMIN_NAME, email: DEMO_ADMIN_EMAIL });
+            router.push(lp("/demo/admin"));
           }}
         >
           {t("persona.admin")}
@@ -101,14 +86,14 @@ export function DemoHud() {
         <Button
           variant="dark"
           onClick={async () => {
-            const s = await mockApi.staffLogin("104", "2222");
+            const s = await mockApi.staffLogin(DEMO_WAITER_CODE, DEMO_WAITER_PIN);
             setSession({ kind: "staff", staffId: s.staffId, name: s.name, role: s.role });
-            router.push("/demo/pos/floor");
+            router.push(lp("/demo/pos/floor"));
           }}
         >
           {t("persona.waiter")}
         </Button>
-        <Button variant="dark" onClick={() => router.push("/demo/kitchen-display")}>
+        <Button variant="dark" onClick={() => router.push(lp("/demo/kitchen-display"))}>
           {t("persona.kitchen")}
         </Button>
         <Button
@@ -116,7 +101,7 @@ export function DemoHud() {
           onClick={async () => {
             await mockApi.resetDemo();
             useDemoStore.getState().clearSession();
-            router.push("/");
+            router.push(lp("/"));
           }}
         >
           {t("demo.reset")}

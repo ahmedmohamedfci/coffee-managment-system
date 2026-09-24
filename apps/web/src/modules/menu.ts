@@ -9,7 +9,8 @@ import {
 } from "@saasfood/db";
 import type { Allergen, ModifierGroup } from "@saasfood/shared";
 import { getDb } from "@/lib/db";
-import { ApiError, uid } from "@/lib/api-helpers";
+import { apiError, uid } from "@/lib/api-helpers";
+import { TAX_RATE_MAX, TAX_RATE_MIN } from "@/lib/constants";
 
 export async function listMenu(tenantId: string) {
   const db = getDb();
@@ -131,7 +132,7 @@ export async function createMenuItem(tenantId: string, input: MenuItemInput) {
       and(eq(menuCategories.tenantId, tenantId), eq(menuCategories.id, input.categoryId)),
     )
     .limit(1);
-  if (!cat) throw new ApiError(400, "Category not found", "CATEGORY_NOT_FOUND");
+  if (!cat) throw apiError("CATEGORY_NOT_FOUND");
 
   const id = uid("mi");
   const [row] = await db
@@ -173,7 +174,7 @@ export async function updateMenuItem(
     .from(menuItems)
     .where(and(eq(menuItems.tenantId, tenantId), eq(menuItems.id, itemId)))
     .limit(1);
-  if (!existing) throw new ApiError(404, "Menu item not found", "ITEM_NOT_FOUND");
+  if (!existing) throw apiError("ITEM_NOT_FOUND");
 
   if (input.categoryId) {
     const [cat] = await db
@@ -183,7 +184,7 @@ export async function updateMenuItem(
         and(eq(menuCategories.tenantId, tenantId), eq(menuCategories.id, input.categoryId)),
       )
       .limit(1);
-    if (!cat) throw new ApiError(400, "Category not found", "CATEGORY_NOT_FOUND");
+    if (!cat) throw apiError("CATEGORY_NOT_FOUND");
   }
 
   const [row] = await db
@@ -232,7 +233,7 @@ export async function deleteMenuItem(tenantId: string, itemId: string) {
     .where(and(eq(menuItems.tenantId, tenantId), eq(menuItems.id, itemId)))
     .returning({ id: menuItems.id });
   if (deleted.length === 0) {
-    throw new ApiError(404, "Menu item not found", "ITEM_NOT_FOUND");
+    throw apiError("ITEM_NOT_FOUND");
   }
   return { ok: true };
 }
@@ -291,8 +292,8 @@ export async function updateTenantSettings(
   tenantId: string,
   input: { name?: string; taxRate?: number },
 ) {
-  if (input.taxRate !== undefined && (input.taxRate < 0 || input.taxRate > 1)) {
-    throw new ApiError(400, "taxRate must be between 0 and 1", "INVALID_TAX");
+  if (input.taxRate !== undefined && (input.taxRate < TAX_RATE_MIN || input.taxRate > TAX_RATE_MAX)) {
+    throw apiError("INVALID_TAX");
   }
 
   const db = getDb();
@@ -305,7 +306,7 @@ export async function updateTenantSettings(
     .where(eq(tenants.id, tenantId))
     .returning();
 
-  if (!row) throw new ApiError(404, "Tenant not found", "TENANT_NOT_FOUND");
+  if (!row) throw apiError("TENANT_NOT_FOUND");
 
   return {
     id: row.id,
