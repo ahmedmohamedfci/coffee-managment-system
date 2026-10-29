@@ -18,19 +18,22 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV DOCKER_BUILD=1
 RUN pnpm --filter @saasfood/web build
 
-FROM node:20-bookworm-slim AS runner
+# Keep monorepo + DB_UPDATES so entrypoint can run filename-ledger migrate on boot.
+FROM build AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
 
-RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nextjs
+RUN mkdir -p /app/standalone \
+  && cp -a /app/apps/web/.next/standalone/. /app/standalone/ \
+  && mkdir -p /app/standalone/apps/web/.next \
+  && cp -a /app/apps/web/.next/static /app/standalone/apps/web/.next/static \
+  && if [ -d /app/apps/web/public ]; then cp -a /app/apps/web/public /app/standalone/apps/web/public; fi
 
-COPY --from=build --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
-COPY --from=build --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
-COPY --from=build --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
+COPY docker/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-USER nextjs
 EXPOSE 3000
-CMD ["node", "apps/web/server.js"]
+ENTRYPOINT ["/entrypoint.sh"]

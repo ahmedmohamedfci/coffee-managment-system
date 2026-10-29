@@ -182,7 +182,7 @@ export const cs: Record<MessageKey, string> = {
   "kds.empty": "Zatím žádné lístky — odešlete objednávku z POS",
   "kds.connected": "Připojeno (mock)",
   "kds.station": "Aktivní stanice: Teplé nápoje a pečivo",
-  "persona.admin": "Admin",
+  "persona.admin": "Admin (101 / 1234)",
   "persona.waiter": "Číšník (104 / 2222)",
   "persona.kitchen": "Otevřít Kitchen Display System",
 
@@ -190,7 +190,7 @@ export const cs: Record<MessageKey, string> = {
   "hub.realTenants": "Reální tenanti",
   "hub.seedLogins": "Seed přihlášení: admin {{admin}}, číšník {{waiter}}. Admin navigace je pod {{adminPath}}.",
   "hub.mockDemo": "Mock demo",
-  "hub.mockLead": "Klientské mock API — databáze není potřeba. Stejný PIN průchod jako dříve.",
+  "hub.mockLead": "Klientské mock API — databáze není potřeba. Seed přihlášení: admin 101 / 1234, číšník 104 / 2222.",
   "hub.posLogin": "POS přihlášení",
   "hub.adminLogin": "Admin přihlášení",
   "hub.kitchen": "Kuchyňský displej",

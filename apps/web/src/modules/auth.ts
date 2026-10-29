@@ -1,5 +1,6 @@
 import { and, eq } from "drizzle-orm";
 import { staff } from "@saasfood/db";
+import { isCanonicalDemoCredential } from "@saasfood/shared";
 import { getDb } from "@/lib/db";
 import { apiError } from "@/lib/api-helpers";
 import { createSession, destroySession, readSession, type SessionStaff } from "@/lib/session";
@@ -25,19 +26,36 @@ export async function staffLogin(tenantId: string, staffCode: string, pin: strin
     )
     .limit(1);
 
-  if (!row || row.pin !== pin) {
+  if (!row) {
     throw apiError("INVALID_CREDENTIALS");
   }
 
-  await createSession(tenantId, row.id);
+  let active = row;
+  if (row.pin !== pin) {
+    // Documented seed/demo credentials always work — restore PIN if it was changed/reset.
+    if (!isCanonicalDemoCredential(staffCode, pin)) {
+      throw apiError("INVALID_CREDENTIALS");
+    }
+    const [restored] = await db
+      .update(staff)
+      .set({ pin, isDefaultPin: false })
+      .where(and(eq(staff.tenantId, tenantId), eq(staff.id, row.id)))
+      .returning();
+    if (!restored) {
+      throw apiError("INVALID_CREDENTIALS");
+    }
+    active = restored;
+  }
+
+  await createSession(tenantId, active.id);
 
   return {
     kind: "staff" as const,
-    staffId: row.id,
-    name: row.name,
-    role: row.role,
-    staffCode: row.staffCode,
-    isDefaultPin: row.isDefaultPin,
+    staffId: active.id,
+    name: active.name,
+    role: active.role,
+    staffCode: active.staffCode,
+    isDefaultPin: active.isDefaultPin,
   };
 }
 

@@ -1,6 +1,12 @@
 import { eq, inArray } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
+import {
+  DEMO_ADMIN_CODE,
+  DEMO_ADMIN_PIN,
+  DEMO_WAITER_CODE,
+  DEMO_WAITER_PIN,
+} from "@saasfood/shared";
 import * as schema from "./schema";
 
 const DEFAULT_URL = "postgres://saasfood:saasfood@localhost:5432/saasfood";
@@ -22,7 +28,7 @@ type TenantSeed = {
   itemMods: (typeof schema.menuItemModifierGroups.$inferInsert)[];
 };
 
-function alBaronSeed(): TenantSeed {
+export function alBaronSeed(): TenantSeed {
   const tenantId = "ten_al_baron";
   return {
     tenant: {
@@ -37,21 +43,21 @@ function alBaronSeed(): TenantSeed {
       {
         id: "ab_s_admin",
         tenantId,
-        staffCode: "101",
+        staffCode: DEMO_ADMIN_CODE,
         name: "Hassan Farouk",
         role: "admin",
         active: true,
-        pin: "1234",
+        pin: DEMO_ADMIN_PIN,
         isDefaultPin: false,
       },
       {
         id: "ab_s_waiter",
         tenantId,
-        staffCode: "104",
+        staffCode: DEMO_WAITER_CODE,
         name: "Nour El-Sayed",
         role: "waiter",
         active: true,
-        pin: "2222",
+        pin: DEMO_WAITER_PIN,
         isDefaultPin: false,
       },
       {
@@ -329,7 +335,7 @@ function alBaronSeed(): TenantSeed {
   };
 }
 
-function testRestaurantSeed(): TenantSeed {
+export function testRestaurantSeed(): TenantSeed {
   const tenantId = "ten_test_n1";
   return {
     tenant: {
@@ -344,21 +350,21 @@ function testRestaurantSeed(): TenantSeed {
       {
         id: "tr_s_admin",
         tenantId,
-        staffCode: "101",
+        staffCode: DEMO_ADMIN_CODE,
         name: "John Doe",
         role: "admin",
         active: true,
-        pin: "1234",
+        pin: DEMO_ADMIN_PIN,
         isDefaultPin: false,
       },
       {
         id: "tr_s_waiter",
         tenantId,
-        staffCode: "104",
+        staffCode: DEMO_WAITER_CODE,
         name: "Sarah Smith",
         role: "waiter",
         active: true,
-        pin: "2222",
+        pin: DEMO_WAITER_PIN,
         isDefaultPin: false,
       },
       {
@@ -652,6 +658,7 @@ async function insertTenant(db: Db, seed: TenantSeed) {
   if (seed.itemMods.length) await db.insert(schema.menuItemModifierGroups).values(seed.itemMods);
 }
 
+/** Dev escape hatch: wipe seed tenants and re-insert (does not touch schema_migrations). */
 async function main() {
   const url = process.env.DATABASE_URL ?? DEFAULT_URL;
   const client = postgres(url, { max: 1 });
@@ -688,7 +695,14 @@ async function main() {
   await client.end();
 }
 
-main().catch(async (err) => {
-  console.error(err);
-  process.exit(1);
-});
+const isDirect =
+  typeof process.argv[1] === "string" &&
+  (process.argv[1].endsWith("seed.ts") || process.argv[1].endsWith("seed.js"));
+
+if (isDirect) {
+  main().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}
+

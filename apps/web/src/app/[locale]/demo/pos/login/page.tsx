@@ -6,13 +6,14 @@ import { mockApi } from "@saasfood/shared";
 import { Button, Keypad, TerminalFrame, TextField } from "@saasfood/ui";
 import { useDemoStore } from "@/lib/demo-store";
 import { useT, useLocalePath } from "@/lib/use-t";
+import { DEMO_WAITER_CODE } from "@/lib/constants";
 
 export default function StaffPinPage() {
   const t = useT();
   const lp = useLocalePath();
   const router = useRouter();
   const setSession = useDemoStore((s) => s.setSession);
-  const [staffCode, setStaffCode] = useState("104");
+  const [staffCode, setStaffCode] = useState(DEMO_WAITER_CODE);
   const [pin, setPin] = useState("");
   const [error, setError] = useState("");
   const [forceChange, setForceChange] = useState<{ staffId: string; name: string } | null>(null);

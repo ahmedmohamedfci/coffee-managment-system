@@ -7,6 +7,7 @@ SaaSFood already has a production `Dockerfile` (Next.js standalone on port 3000)
 1. Create an application from this GitHub repo, branch **main**.
 2. Build pack: **Dockerfile**.
 3. Set env vars as needed (`DATABASE_URL`, etc.) and a domain (e.g. `food.zildra.com`); enable HTTPS.
+   On every container start the entrypoint runs `pnpm db:migrate` (filename-ledger over `packages/db/DB_UPDATES`).
 4. Copy **Deploy Webhook (auth required)** from Configuration → Webhooks.
 5. Create an API token with **deploy** permission.
 6. GitHub secrets (Actions):

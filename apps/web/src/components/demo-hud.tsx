@@ -9,8 +9,9 @@ import { useLocalePath, useT } from "@/lib/use-t";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { stripLocalePrefix } from "@/lib/locale";
 import {
+  DEMO_ADMIN_CODE,
   DEMO_ADMIN_EMAIL,
-  DEMO_ADMIN_NAME,
+  DEMO_ADMIN_PIN,
   DEMO_WAITER_CODE,
   DEMO_WAITER_PIN,
 } from "@/lib/constants";
@@ -77,7 +78,8 @@ export function DemoHud() {
         <Button
           variant="dark"
           onClick={async () => {
-            setSession({ kind: "admin", name: DEMO_ADMIN_NAME, email: DEMO_ADMIN_EMAIL });
+            const s = await mockApi.staffLogin(DEMO_ADMIN_CODE, DEMO_ADMIN_PIN);
+            setSession({ kind: "admin", name: s.name, email: DEMO_ADMIN_EMAIL });
             router.push(lp("/demo/admin"));
           }}
         >

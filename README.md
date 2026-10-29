@@ -26,12 +26,13 @@ docker compose up -d postgres
 #    postgres://saasfood:saasfood@localhost:5432/saasfood
 export DATABASE_URL=postgres://saasfood:saasfood@localhost:5432/saasfood   # Windows: set DATABASE_URL=...
 pnpm install
-pnpm db:migrate
-pnpm db:seed
+pnpm db:migrate   # applies pending packages/db/DB_UPDATES/*.sql (001 init + 002 seed)
 
 # 3. Dev server
 pnpm dev
 ```
+
+Optional local force-reseed (does not rewrite `schema_migrations`): `pnpm db:seed`.
 
 Open http://localhost:3000
 

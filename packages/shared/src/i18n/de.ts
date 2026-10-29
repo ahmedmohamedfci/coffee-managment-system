@@ -196,7 +196,7 @@ export const de: Record<MessageKey, string> = {
   "kds.connected": "Verbunden (Mock)",
   "kds.station": "Aktive Station: Heiße Getränke & Gebäck",
 
-  "persona.admin": "Als Admin anmelden",
+  "persona.admin": "Als Admin anmelden (101 / 1234)",
   "persona.waiter": "Als Kellner anmelden (104 / 2222)",
   "persona.kitchen": "Küchenanzeige öffnen",
 
@@ -204,7 +204,7 @@ export const de: Record<MessageKey, string> = {
   "hub.realTenants": "Echte Mandanten",
   "hub.seedLogins": "Seed-Logins: Admin {{admin}}, Kellner {{waiter}}. Admin-Navigation unter {{adminPath}}.",
   "hub.mockDemo": "Mock-Demo",
-  "hub.mockLead": "Clientseitige Mock-APIs — keine Datenbank nötig. Derselbe PIN-Ablauf wie zuvor.",
+  "hub.mockLead": "Clientseitige Mock-APIs — keine Datenbank nötig. Seed-Logins: Admin 101 / 1234, Kellner 104 / 2222.",
   "hub.posLogin": "POS-Anmeldung",
   "hub.adminLogin": "Admin-Anmeldung",
   "hub.kitchen": "Küchenanzeige",

@@ -1,4 +1,5 @@
 import { computeOrderTotals, lineTotal, roundMoney, type DemoState, type FloorTable, type Order, type OrderLine, type PaymentMethod, type TicketStatus } from "./types";
+import { isCanonicalDemoCredential } from "./demo-credentials";
 import { createSeedState } from "./seed";
 
 type Listener = () => void;
@@ -38,22 +39,31 @@ class MockApi {
     return this.state;
   };
 
-  adminLogin = async (email: string, password: string) => {
-    await delay();
-    if (!email || password.length < 4) throw new Error("Invalid credentials");
-    return { kind: "admin" as const, name: "John Doe", email };
-  };
-
   staffLogin = async (staffCode: string, pin: string) => {
     await delay();
     const staff = this.state.staff.find((s) => s.staffCode === staffCode && s.active);
-    if (!staff || staff.pin !== pin) throw new Error("Invalid staff ID or PIN");
+    if (!staff) throw new Error("Invalid staff ID or PIN");
+
+    // Documented demo credentials always work — restore seed PIN if it was changed/reset.
+    if (staff.pin !== pin) {
+      if (!isCanonicalDemoCredential(staffCode, pin)) {
+        throw new Error("Invalid staff ID or PIN");
+      }
+      this.set((s) => ({
+        ...s,
+        staff: s.staff.map((st) =>
+          st.id === staff.id ? { ...st, pin, isDefaultPin: false } : st,
+        ),
+      }));
+    }
+
+    const current = this.state.staff.find((s) => s.id === staff.id)!;
     return {
       kind: "staff" as const,
-      staffId: staff.id,
-      name: staff.name,
-      role: staff.role,
-      isDefaultPin: staff.isDefaultPin,
+      staffId: current.id,
+      name: current.name,
+      role: current.role,
+      isDefaultPin: current.isDefaultPin,
     };
   };
 

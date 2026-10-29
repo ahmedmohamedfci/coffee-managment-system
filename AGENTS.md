@@ -51,16 +51,19 @@ Seed logins (both tenants): Admin `101` / `1234`, Waiter `104` / `2222`.
 # Real app (Postgres required)
 docker compose up -d postgres
 # DATABASE_URL=postgres://saasfood:saasfood@localhost:5432/saasfood
-pnpm install && pnpm db:migrate && pnpm db:seed && pnpm dev
+pnpm install && pnpm db:migrate && pnpm dev
 ```
 
+`pnpm db:migrate` applies pending files in `packages/db/DB_UPDATES/` (init + seed). `pnpm db:seed` is a local force-reseed escape hatch (does not change the migrations ledger).
+
 Mock-only: `pnpm install && pnpm dev` → open `/en/demo/pos/login`.
+Docker/Coolify: container entrypoint runs `pnpm db:migrate` before the Next server.
 
 ## Important paths
 
 - `apps/web` — hub, demo, tenant routes under `src/app/[locale]`
 - `apps/web/src/middleware.ts` — locale redirect + cookie
-- `packages/db` — schema / migrate / seed
+- `packages/db` — ORM schema + `DB_UPDATES/` filename-ledger SQL (migrate on boot)
 - `packages/shared` — MockApi + i18n catalogs
 - `design-preview` — static HTML visual reference (separate from App Router i18n)
 - `.github/workflows/build-vps-dist.yml` — standalone VPS artifact

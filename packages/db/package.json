@@ -17,12 +17,12 @@
   "dependencies": {
     "@saasfood/shared": "workspace:*",
     "drizzle-orm": "^0.44.5",
-    "postgres": "^3.4.7"
+    "postgres": "^3.4.7",
+    "tsx": "^4.20.5"
   },
   "devDependencies": {
     "@types/node": "^20",
     "drizzle-kit": "^0.31.4",
-    "tsx": "^4.20.5",
     "typescript": "^5"
   }
 }

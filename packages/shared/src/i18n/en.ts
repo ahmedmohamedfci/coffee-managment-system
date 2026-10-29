@@ -194,7 +194,7 @@ export const en = {
   "kds.connected": "Connected (mock)",
   "kds.station": "Active station: Hot drinks & pastries",
 
-  "persona.admin": "Login as Admin",
+  "persona.admin": "Login as Admin (101 / 1234)",
   "persona.waiter": "Login as Waiter (104 / 2222)",
   "persona.kitchen": "Open Kitchen Display System",
 
@@ -202,7 +202,7 @@ export const en = {
   "hub.realTenants": "Real tenants",
   "hub.seedLogins": "Seed logins: admin {{admin}}, waiter {{waiter}}. Admin soft-nav lives under {{adminPath}}.",
   "hub.mockDemo": "Mock demo",
-  "hub.mockLead": "Client-side mocked APIs — no database required. Same PIN walkthrough as before.",
+  "hub.mockLead": "Client-side mocked APIs — no database required. Same seed logins: admin 101 / 1234, waiter 104 / 2222.",
   "hub.posLogin": "POS login",
   "hub.adminLogin": "Admin login",
   "hub.kitchen": "Kitchen display",

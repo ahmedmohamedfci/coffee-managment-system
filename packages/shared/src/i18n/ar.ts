@@ -182,7 +182,7 @@ export const ar: Record<MessageKey, string> = {
   "kds.empty": "لا تذاكر بعد — أرسل طلبًا من نقطة البيع",
   "kds.connected": "متصل (وهمي)",
   "kds.station": "المحطة النشطة: مشروبات ساخنة ومعجنات",
-  "persona.admin": "دخول المشرف",
+  "persona.admin": "دخول المشرف (101 / 1234)",
   "persona.waiter": "نادل (104 / 2222)",
   "persona.kitchen": "فتح نظام عرض المطبخ",
 
@@ -190,7 +190,7 @@ export const ar: Record<MessageKey, string> = {
   "hub.realTenants": "مستأجرون حقيقيون",
   "hub.seedLogins": "بيانات الدخول التجريبية: مشرف {{admin}}، نادل {{waiter}}. تنقل المشرف تحت {{adminPath}}.",
   "hub.mockDemo": "عرض تجريبي وهمي",
-  "hub.mockLead": "واجهات وهمية من جهة العميل — لا حاجة لقاعدة بيانات. نفس مسار رمز الدخول السابق.",
+  "hub.mockLead": "واجهات وهمية من جهة العميل — لا حاجة لقاعدة بيانات. بيانات الدخول: مشرف 101 / 1234، نادل 104 / 2222.",
   "hub.posLogin": "دخول نقطة البيع",
   "hub.adminLogin": "دخول المشرف",
   "hub.kitchen": "عرض المطبخ",

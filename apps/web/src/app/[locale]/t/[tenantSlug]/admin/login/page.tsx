@@ -5,13 +5,14 @@ import { useParams, useRouter } from "next/navigation";
 import { Button, Keypad, TextField } from "@saasfood/ui";
 import { createTenantApi } from "@/lib/api-client";
 import { useT, useLocalePath } from "@/lib/use-t";
+import { DEMO_ADMIN_CODE } from "@/lib/constants";
 
 export default function AdminLoginPage() {
   const t = useT();
   const lp = useLocalePath();
   const { tenantSlug } = useParams<{ tenantSlug: string }>();
   const router = useRouter();
-  const [staffCode, setStaffCode] = useState("101");
+  const [staffCode, setStaffCode] = useState(DEMO_ADMIN_CODE);
   const [pin, setPin] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);

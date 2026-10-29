@@ -1,3 +1,4 @@
+import { DEMO_ADMIN_CODE, DEMO_ADMIN_PIN, DEMO_WAITER_CODE, DEMO_WAITER_PIN } from "./demo-credentials";
 import type { DemoState } from "./types";
 
 export function createSeedState(): DemoState {
@@ -9,20 +10,20 @@ export function createSeedState(): DemoState {
     staff: [
       {
         id: "s1",
-        staffCode: "101",
+        staffCode: DEMO_ADMIN_CODE,
         name: "John Doe",
         role: "admin",
         active: true,
-        pin: "1234",
+        pin: DEMO_ADMIN_PIN,
         isDefaultPin: false,
       },
       {
         id: "s2",
-        staffCode: "104",
+        staffCode: DEMO_WAITER_CODE,
         name: "Sarah Smith",
         role: "waiter",
         active: true,
-        pin: "2222",
+        pin: DEMO_WAITER_PIN,
         isDefaultPin: false,
       },
       {

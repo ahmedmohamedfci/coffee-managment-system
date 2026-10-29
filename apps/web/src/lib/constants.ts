@@ -1,5 +1,12 @@
 /** Non-locale constants (timeouts, limits, cookie names, etc.). Copy stays in i18n. */
 
+import {
+  DEMO_ADMIN_CODE,
+  DEMO_ADMIN_PIN,
+  DEMO_WAITER_CODE,
+  DEMO_WAITER_PIN,
+} from "@saasfood/shared";
+
 export const SESSION_COOKIE = "sf_session";
 export const SESSION_TTL_MS = 12 * 60 * 60 * 1000;
 
@@ -18,12 +25,10 @@ export const TAX_RATE_MAX = 1;
 export const PAYMENT_STASH_KEY = "sf_last_payment";
 
 export const DEMO_ADMIN_EMAIL = "admin@brewexpress.com";
-export const DEMO_ADMIN_NAME = "John Doe";
-export const DEMO_WAITER_CODE = "104";
-export const DEMO_WAITER_PIN = "2222";
+export { DEMO_ADMIN_CODE, DEMO_ADMIN_PIN, DEMO_WAITER_CODE, DEMO_WAITER_PIN };
 
-export const SEED_ADMIN_LOGIN = "101 / 1234";
-export const SEED_WAITER_LOGIN = "104 / 2222";
+export const SEED_ADMIN_LOGIN = `${DEMO_ADMIN_CODE} / ${DEMO_ADMIN_PIN}`;
+export const SEED_WAITER_LOGIN = `${DEMO_WAITER_CODE} / ${DEMO_WAITER_PIN}`;
 
 export const HUB_TENANTS = [
   { name: "AL BARON PYRAMID IV", slug: "al-baron-pyramid-iv" },
